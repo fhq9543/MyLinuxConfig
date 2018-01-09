@@ -118,6 +118,7 @@ noremap <leader>y "+y
 
 nnoremap <c-p> :<c-p>
 nnoremap <c-n> :<c-n>
+" 折叠
 nnoremap <space> za
 
 nnoremap <c-h> <c-w><c-h>
@@ -197,6 +198,7 @@ tnoremap <c-q> <c-\><c-n>
 let $CONF = "~/.config/nvim/init.vim"
 
 nnoremap <leader>C :!rm ~/.local/share/nvim/swap/* -rf<cr>
+" 开启终端
 nnoremap <leader>T :vs term://zsh<cr>a
 
 nnoremap <esc><esc> :nohlsearch<CR>
@@ -345,24 +347,24 @@ set wildignore=*.o,*.obj,*.d,*/.git/*,*.a,*.so,*.pyc,*/__pycache__/*
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>u :CtrlPMRUFiles<cr>
 
-" cscope
-set cspc=3
-let g:cscope_auto_update = 1
-"set csprg=/usr/local/bin/cscope
-set csto=0
-set nocst
-let g:cscope_silent = 1
-let g:cscope_interested_files = '\.c$\|\.cpp$\|\.h$\|\.java$'
-nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
-nnoremap <leader>l :call ToggleLocationList()<CR>
-nnoremap <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
-nnoremap <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
-nnoremap <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
-nnoremap <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
-nnoremap <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
-nnoremap <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
-nnoremap <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
-nnoremap <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
+"" cscope
+"set cspc=3
+"let g:cscope_auto_update = 1
+""set csprg=/usr/local/bin/cscope
+"set csto=0
+"set nocst
+"let g:cscope_silent = 1
+"let g:cscope_interested_files = '\.c$\|\.cpp$\|\.h$\|\.java$'
+"nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+"nnoremap <leader>l :call ToggleLocationList()<CR>
+"nnoremap <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+"nnoremap <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+"nnoremap <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+"nnoremap <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+"nnoremap <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+"nnoremap <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+"nnoremap <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+"nnoremap <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 
 " easymotion
 map <leader><leader>h <plug>(easymotion-linebackward)
