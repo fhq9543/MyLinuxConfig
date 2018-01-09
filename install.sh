@@ -8,11 +8,51 @@ set -e
 
 LINUX_CONFIG_PATH=$(dirname $(readlink -f $0))
 
+ins_ssh()
+{
+    sudo apt-get install openssh-server
+    sudo service ssh start
+}
+
+ins_samba()
+{
+    sudo apt-get install samba
+    sudo apt-get install smbclient
+    sudo /etc/init.d/samba start
+    sudo /etc/init.d/samba stop
+    sudo /etc/init.d/samba restart
+    home_path=/home/$USER
+    mkdir $home_path/pub/
+    #security=user 后面添加：
+    sudo chmod 777 /etc/samba/smb.conf
+    sudo echo "security=share" >> /etc/samba/smb.conf
+    sudo echo "[share]" >> /etc/samba/smb.conf
+    sudo echo "comment=this is Linux share directory" >> /etc/samba/smb.conf
+    sudo echo "path=$home_path/pub/" >> /etc/samba/smb.conf
+    sudo echo "public=yes" >> /etc/samba/smb.conf
+    sudo echo "writable=yes" >> /etc/samba/smb.conf
+    sudo echo "vaild users = $USER" >> /etc/samba/smb.conf
+    sudo chmod 644 /etc/samba/smb.conf
+    sudo smbpasswd -a $USER
+    sudo /etc/init.d/samba restart
+}
+
+ins_python()
+{
+	sudo apt-get install -y python python-dev python-pip
+	sudo apt-get install -y python3 python-dev python3-pip
+	make -C $LINUX_CONFIG_PATH install-pip
+	sudo pip install -U pip
+	sudo pip install virtualenv
+	mkdir -p ~/.env
+	virtualenv -p python ~/.env/py2
+	virtualenv -p python3 ~/.env/py3
+}
+
 ins_nvim()
 {
 	sudo apt-get install -y software-properties-common
 	sudo add-apt-repository ppa:neovim-ppa/stable
-	sudo apt-get update
 	sudo apt-get install -y neovim
 
 	sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
@@ -30,18 +70,6 @@ ins_nvim()
 	nvim -c 'PlugInstall'
 	# install nvim plug config
 	ins_nvim_plug_conf
-}
-
-ins_python()
-{
-	sudo apt-get install -y python python-dev python-pip
-	sudo apt-get install -y python3 python-dev python3-pip
-	make -C $LINUX_CONFIG_PATH install-pip
-	sudo pip install -U pip
-	sudo pip install virtualenv
-	mkdir -p ~/.env
-	virtualenv -p python ~/.env/py2
-	virtualenv -p python3 ~/.env/py3
 }
 
 ins_zsh()
@@ -81,6 +109,8 @@ ins_zsh_plug()
 # 用于装完系统后安装各类工具
 init()
 {
+    ins_ssh
+    ins_samba
 	ins_python
 	ins_nvim
 	ins_fzf
@@ -123,11 +153,13 @@ help()
 	cat << EOF
 Usage:            ./install [OPT]
 OPT:
+    ins_ssh:            安装open-ssh
+    ins_samba:          安装samba及相关配置，共享目录为~/pub
 	ins_python:         安装python以及虚拟环境
 	ins_nvim:           安装nvim以及相关插件
 	ins_zsh:            安装zsh
 	ins_fzf:            安装fzf
-	init:               执行ins_python, ins_nvim, ins_zsh, ins_fzf, ins_other, make
+	init:               执行ins_ssh, ins_samba, ins_python, ins_nvim, ins_zsh, ins_fzf, ins_other, make
 	ins_zsh_plug:       安装zsh的脚本，必须在安装zsh后执行，否则会阻碍oh-my-zsh的安装
 	ins_pytools:        安装python工具，在安装python虚拟环境后安装
 	ins_nvim_plug_conf: 安装nvim插件配置
@@ -138,6 +170,7 @@ EOF
 if [[ -z $1 || $1 == '-h' || $1 == '--help' ]]; then
 	help
 else
+	sudo apt-get update
 	$1
 fi
 
