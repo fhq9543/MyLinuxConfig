@@ -18,7 +18,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'sjl/gundo.vim'
-" j
+" js
 Plug 'pangloss/vim-javascript'
 " python
 Plug 'davidhalter/jedi-vim'
@@ -49,15 +49,15 @@ set background=dark
 set mousehide               " Hide the mouse cursor while typing
 set cursorline                  " Highlight current line
 set showmode                    " Display the current mode
-set backspace=indent,eol,start  " Backspace for dummie
-set linespace=0                 " No extra spaces between row
+set backspace=indent,eol,start  " Backspace for dummies
+set linespace=0                 " No extra spaces between rows
 set number                      " Line numbers on
 set relativenumber              " 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
-set showmatch                   " Show matching brackets/parenthesi
+set showmatch                   " Show matching brackets/parenthesis
 
 " search
 set incsearch                   " Find as you type search
-set hlsearch                    " Highlight search term
+set hlsearch                    " Highlight search terms
 set ignorecase                  " Case insensitive search
 set smartcase                   " Case sensitive when uc present
 
@@ -71,14 +71,14 @@ set scrolloff=3                 " Minimum lines to keep above and below cursor
 set autoindent                  " Indent at the same level of the previous line
 set smartindent
 set cindent
-"set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1
+"set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s
 "set cinkeys=0{,0},0),:,!^F,o,O,e
 set showcmd                     " show the cmd you input
 set ruler                       " show the current position
 
 " TAB
-set shiftwidth=4                " Use indents of 4 space
-set tabstop=4                   " An indentation every four column
+set shiftwidth=4                " Use indents of 4 spaces
+set tabstop=4                   " An indentation every four columns
 set softtabstop=4               " Let backspace delete indent
 set shiftround
 set expandtab
@@ -97,7 +97,7 @@ set nowrap
 
 
 " disable stupid backup and swap files - they trigger too many events for file
-" system watcher
+" system watchers
 set nobackup
 set nowritebackup
 set noswapfile
@@ -255,7 +255,7 @@ autocmd BufNewFile,BufRead *.py
 autocmd BufNewFile *.py call append(0, "\# -*- coding: utf-8 -*-")
 
 " set web config
-"au BufNewFile,BufRead *.js,*.html,*.c
+"au BufNewFile,BufRead *.js,*.html,*.css
 "            \ set tabstop=2 |
 "            \ set softtabstop=2 |
 "            \ set shiftwidth=2
@@ -334,7 +334,7 @@ set updatetime=1000
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
 
-let OmniCpp_NamespaceSearch = 2 "search namespaces in the current buffer and in include file
+let OmniCpp_NamespaceSearch = 2 "search namespaces in the current buffer and in include files
 
 " tag
 set tags=tags;
@@ -426,11 +426,11 @@ let g:ultisnips_python_style = 'sphinx'
 let g:instant_markdown_autostart = 0
 map <F8> :InstantMarkdownPreview<cr>
 
-" rainbow_parenthese
+" rainbow_parentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBrace
+au Syntax * RainbowParenthesesLoadBraces
 
 " -------------------- other vim config ----------
 source ~/.config/nvim/google_python_style.vim
