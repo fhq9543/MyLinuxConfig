@@ -35,7 +35,7 @@ install.sh -h|--help: 查看帮助
 
 	nnoremap <Leader>wd dw
 	nnoremap <buffer> <nowait> <Leader>w w	
-	如果没有加「<**nowait**>」，按下「,w」后，要等一段时间确认之后你接下来要按的不是「d」，才会执行。
+	如果没有加「nowait」，按下「,w」后，要等一段时间确认之后你接下来要按的不是「d」，才会执行。
 	加了之后就不会等待，而是直接执行了，缺点就是「,wd」会失效。
 	
 ## 映射键：

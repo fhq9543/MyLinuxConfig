@@ -111,7 +111,7 @@ set langmenu=zh_CN.UTF-8
 " 下面这句只影响普通模式 (非图形界面) 下的 Vim
 set termencoding=&encoding
 
-# Remove the trailing whitespace
+" Remove the trailing whitespace
 autocmd BufWrite * execute ":s/\s*$//"
 
 

@@ -22,6 +22,9 @@ ins_samba()
     sudo /etc/init.d/samba stop
     sudo /etc/init.d/samba restart
     mkdir $HOME/pub/
+    if [ ! -d "$HOME/pub" ]; then
+        mkdir $HOME/pub
+    fi
     #security=user 后面添加：
     sudo chmod 777 /etc/samba/smb.conf
     sudo echo "security=share" >> /etc/samba/smb.conf
