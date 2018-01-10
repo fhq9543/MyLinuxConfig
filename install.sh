@@ -21,16 +21,23 @@ ins_samba()
     sudo /etc/init.d/samba start
     sudo /etc/init.d/samba stop
     sudo /etc/init.d/samba restart
-    mkdir $HOME/pub/
-    if [ ! -d "$HOME/pub" ]; then
-        mkdir $HOME/pub
+    samba_dir=$HOME/pub/
+    if [ ! -d $samba_dir ]; then
+        mkdir $samba_dir
     fi
+    smb_conf=/etc/samba/smb.conf
+    smb_conf_bak=/etc/samba/smb.conf.bak
+    if [ ! -f $smb_conf_bak ]; then
+        sudo cp $smb_conf $smb_conf_bak
+    fi
+
+    sudo cp $smb_conf_bak $smb_conf
     #security=user 后面添加：
     sudo chmod 777 /etc/samba/smb.conf
     sudo echo "security=share" >> /etc/samba/smb.conf
     sudo echo "[share]" >> /etc/samba/smb.conf
     sudo echo "comment=this is Linux share directory" >> /etc/samba/smb.conf
-    sudo echo "path=$HOME/pub/" >> /etc/samba/smb.conf
+    sudo echo "path=$samba_dir" >> /etc/samba/smb.conf
     sudo echo "public=yes" >> /etc/samba/smb.conf
     sudo echo "writable=yes" >> /etc/samba/smb.conf
     sudo echo "vaild users = $USER" >> /etc/samba/smb.conf
@@ -107,11 +114,12 @@ ins_nvim_plug_conf()
     py_snip=$LINUX_CONFIG_PATH/nvim/plugged/vim-snippets/UltiSnips/python.snippets
     py_snip_bak=$LINUX_CONFIG_PATH/nvim/plugged/vim-snippets/UltiSnips/python.snippets.bak
     diy_py_snip=$LINUX_CONFIG_PATH/nvim/python.snippets
-    if [[ -z $(grep "# DIY" $py_snip) ]]; then
+
+    if [ ! -f $py_snip_bak ]; then
         cp $py_snip $py_snip_bak
-        ln -s $diy_py_snip $py_snip
-        #cat $diy_py_snip >> $py_snip
     fi
+    cp $py_snip_bak $py_snip
+    cat $diy_py_snip >> $py_snip
 }
 
 # 安装用于nvim的python插件
