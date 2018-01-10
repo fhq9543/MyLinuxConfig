@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -52,7 +52,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git autojump colored-man-pages zsh_reload pip sudo \
-	extract django python celery supervisord zsh-syntax-highlighting, catimg)
+	extract django python celery supervisord zsh-syntax-highlighting zsh-autosuggestions, catimg)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -84,8 +84,80 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+#User configuration
+alias sd="cd $HOME/pub/"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+#alias for git
+alias gs="git status"
+alias gsm="git summary"
+alias ga='git add'
+alias gd='git diff'
+alias gf='git fetch'
+alias grv='git remote -v'
+alias grb='git rebase'
+alias gbr='git branch'
+alias gpl="git pull"
+alias gps="git push"
+alias gco="git checkout"
+alias gl="git log"
+alias gc="git commit -m"
+alias gm="git merge"
+
+#########################################
+#Login
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+_COLUMNS=$(tput cols)
+_MESSAGE=" FBI Warining "
+y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
+spaces=$(printf "%-${y}s" " ")
+
+echo " "
+echo -e "${spaces}\033[41;37;5m FBI WARNING \033[0m"
+echo " "
+_COLUMNS=$(tput cols)
+_MESSAGE="Ferderal Law provides severe civil and criminal penalties for"
+y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
+spaces=$(printf "%-${y}s" " ")
+echo -e "${spaces}${_MESSAGE}"
+
+_COLUMNS=$(tput cols)
+_MESSAGE="the unauthorized reproduction, distribution, or exhibition of"
+y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
+spaces=$(printf "%-${y}s" " ")
+echo -e "${spaces}${_MESSAGE}"
+
+_COLUMNS=$(tput cols)
+_MESSAGE="copyrighted motion pictures (Title 17, United States Code,"
+y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
+spaces=$(printf "%-${y}s" " ")
+echo -e "${spaces}${_MESSAGE}"
+
+_COLUMNS=$(tput cols)
+_MESSAGE="Sections 501 and 508). The Federal Bureau of Investigation"
+y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
+spaces=$(printf "%-${y}s" " ")
+echo -e "${spaces}${_MESSAGE}"
+
+_COLUMNS=$(tput cols)
+_MESSAGE="investigates allegations of criminal copyright infringement"
+y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
+spaces=$(printf "%-${y}s" " ")
+echo -e "${spaces}${_MESSAGE}"
+
+_COLUMNS=$(tput cols)
+_MESSAGE="(Title 17, United States Code, Section 506)."
+y=$(( ( $_COLUMNS - ${#_MESSAGE} )  / 2 ))
+spaces=$(printf "%-${y}s" " ")
+echo -e "${spaces}${_MESSAGE}"
+echo " "
+#########################################
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source ~/.bin/config.sh
 
+eval $(thefuck --alias)

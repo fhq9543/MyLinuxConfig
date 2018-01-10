@@ -21,14 +21,13 @@ ins_samba()
     sudo /etc/init.d/samba start
     sudo /etc/init.d/samba stop
     sudo /etc/init.d/samba restart
-    home_path=/home/$USER
-    mkdir $home_path/pub/
+    mkdir $HOME/pub/
     #security=user 后面添加：
     sudo chmod 777 /etc/samba/smb.conf
     sudo echo "security=share" >> /etc/samba/smb.conf
     sudo echo "[share]" >> /etc/samba/smb.conf
     sudo echo "comment=this is Linux share directory" >> /etc/samba/smb.conf
-    sudo echo "path=$home_path/pub/" >> /etc/samba/smb.conf
+    sudo echo "path=$HOME/pub/" >> /etc/samba/smb.conf
     sudo echo "public=yes" >> /etc/samba/smb.conf
     sudo echo "writable=yes" >> /etc/samba/smb.conf
     sudo echo "vaild users = $USER" >> /etc/samba/smb.conf
@@ -76,7 +75,6 @@ ins_zsh()
 {
     # 注意：在init函数中， 该函数必须在最后执行，由于执行完终端会切换到zsh，从而终端脚本
     sudo apt-get install -y zsh
-    make -C $LINUX_CONFIG_PATH install-zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 }
 
@@ -100,24 +98,17 @@ ins_other()
     sudo apt-get install -y exuberant-ctags
 }
 
-ins_zsh_plug()
+# 安装nvim插件配置
+ins_nvim_plug_conf()
 {
-    # 该函数必须在zsh安装完后安装，由于该函数会生成.oh-my-zsh目录，导致ins_zsh无法正常安装
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-}
-
-# 用于装完系统后安装各类工具
-init()
-{
-    ins_ssh
-    ins_samba
-    ins_python
-    ins_nvim
-    ins_fzf
-    ins_other
-    make -C $LINUX_CONFIG_PATH
-    # zsh必须在最后安装，由于它会将终端切到zsh，从而中断脚本
-    ins_zsh
+    py_snip=$LINUX_CONFIG_PATH/nvim/plugged/vim-snippets/UltiSnips/python.snippets
+    py_snip_bak=$LINUX_CONFIG_PATH/nvim/plugged/vim-snippets/UltiSnips/python.snippets.bak
+    diy_py_snip=$LINUX_CONFIG_PATH/nvim/python.snippets
+    if [[ -z $(grep "# DIY" $py_snip) ]]; then
+        cp $py_snip $py_snip_bak
+        ln -s $diy_py_snip $py_snip
+        #cat $diy_py_snip >> $py_snip
+    fi
 }
 
 # 安装用于nvim的python插件
@@ -135,17 +126,29 @@ ins_pytools()
     fi
 }
 
-# 安装nvim插件配置
-ins_nvim_plug_conf()
+# 用于装完系统后安装各类工具
+init()
 {
-    py_snip=$LINUX_CONFIG_PATH/nvim/plugged/vim-snippets/UltiSnips/python.snippets
-    py_snip_bak=$LINUX_CONFIG_PATH/nvim/plugged/vim-snippets/UltiSnips/python.snippets.bak
-    diy_py_snip=$LINUX_CONFIG_PATH/nvim/python.snippets
-    if [[ -z $(grep "# DIY" $py_snip) ]]; then
-        cp $py_snip $py_snip_bak
-        ln -s $diy_py_snip $py_snip
-        #cat $diy_py_snip >> $py_snip
-    fi
+    sudo apt-get update
+    ins_ssh
+    ins_samba
+    ins_python
+    ins_nvim
+    ins_fzf
+    ins_other
+    make -C $LINUX_CONFIG_PATH
+    ins_nvim_plug_conf
+    ins_pytools
+    # zsh必须在最后安装，由于它会将终端切到zsh，从而中断脚本
+    ins_zsh
+}
+
+# 该函数必须在zsh安装完后安装，由于该函数会生成.oh-my-zsh目录，导致ins_zsh无法正常安装
+ins_zsh_plug()
+{
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestion
+    make -C $LINUX_CONFIG_PATH install-zsh
 }
 
 help()
@@ -159,10 +162,10 @@ OPT:
     ins_nvim:           安装nvim以及相关插件
     ins_zsh:            安装zsh
     ins_fzf:            安装fzf
-    init:               执行ins_ssh, ins_samba, ins_python, ins_nvim, ins_zsh, ins_fzf, ins_other, make
-    ins_zsh_plug:       安装zsh的脚本，必须在安装zsh后执行，否则会阻碍oh-my-zsh的安装
-    ins_pytools:        安装python工具，在安装python虚拟环境后安装
     ins_nvim_plug_conf: 安装nvim插件配置
+    ins_pytools:        安装python工具，在安装python虚拟环境后安装
+    init:               执行ins_ssh, ins_samba, ins_python, ins_nvim, ins_zsh, ins_fzf, ins_other, make, ins_nvim_plug_conf, ins_pytools
+    ins_zsh_plug:       安装zsh的脚本，必须在安装zsh后执行，否则会阻碍oh-my-zsh的安装
 EOF
 }
 
@@ -170,7 +173,5 @@ EOF
 if [[ -z $1 || $1 == '-h' || $1 == '--help' ]]; then
     help
 else
-    sudo apt-get update
     $1
 fi
-

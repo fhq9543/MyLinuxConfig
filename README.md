@@ -1,5 +1,23 @@
-# Linux auto config
+# My linux auto config
 Ubuntu higher versions that 16.04
+
+# dotfiles
+我的linux配置文件
+
+# 说明
+install.sh: 用于安装各类工具
+Makefile: 用于安装各类配置文件
+
+# 使用方法
+## 下载
+git clone git@github.com:fhq9543/MyLinuxConfig.git
+
+## install.sh
+install.sh -h|--help: 查看帮助
+
+## Makefile
+1. make [opt]: 安装对应选项的配置
+2. make: 安装所有配置
 
 ## vim关键字：
 **mapleader** 是自定义命令的起始键，一般都定义成逗号。
