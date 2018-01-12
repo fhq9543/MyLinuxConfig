@@ -1,35 +1,86 @@
 " vim-plug
 let plug_path='~/.config/nvim/plugged/'
 call plug#begin(plug_path)
+" ,t 右侧函数，变量显示
 Plug 'majutsushi/tagbar'
+" ,nf ,nt 左侧目录树显示
 Plug 'scrooloose/nerdtree',
+" ,p ,b ,u 文件模糊查找
 Plug 'kien/ctrlp.vim'
+" tab 代码片段工具，代码块补全
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
+" 括号匹配
 Plug 'jiangmiao/auto-pairs'
+" f F 快速跳转
 Plug 'easymotion/vim-easymotion'
+" c-n c-p tab 自动补全
 Plug 'Shougo/deoplete.nvim'
+" tab 使Tab快捷键具有更快捷的上下文提示功能。自动补全
 Plug 'ervandew/supertab'
+" 语法检测
 Plug 'neomake/neomake'
+" ,cc ,cu ,c<space> 快速注释
 Plug 'scrooloose/nerdcommenter'
+" ,a 全局搜索单词
+" o    to open (same as Enter)
+" t    to open in new tab
 Plug 'mileszs/ack.vim'
+" ga 快速对齐
 Plug 'junegunn/vim-easy-align'
+" :Gdiff 在 vim 中执行一些简单的 Git 命令
 Plug 'tpope/vim-fugitive'
+" 加括号，引号，前后缀等等，写XML很有用(特别是配合repeat)
+" Normal mode
+" -----------
+"  ds  - delete a surrounding
+"  cs  - change a surrounding
+"  ys  - add a surrounding
+"  yS  - add a surrounding and place the surrounded text on a new line +
+"  indent it
+"  yss - add a surrounding to the whole line
+"  ySs - add a surrounding to the whole line, place it on a new line + indent
+"  it
+"  ySS - same as ySs
+"
+"  Visual mode
+"  -----------
+"  s   - in visual mode, add a surrounding
+"  S   - in visual mode, add a surrounding but place text on new line + indent
+"  it
+"
+"  Insert mode
+"  -----------
+"  <CTRL-s> - in insert mode, add a surrounding
+"  <CTRL-s><CTRL-s> - in insert mode, add a new line + surrounding + indent
+"  <CTRL-g>s - same as <CTRL-s>
+"  <CTRL-g>S - same as <CTRL-s><CTRL-s>
 Plug 'tpope/vim-surround'
+" . 重复一个插件的操作（如speeddating, surround等)
 Plug 'tpope/vim-repeat'
+" F7 查看同一个文件之前的历史内容
+" 回车  回滚文件到这个时刻的版本
 Plug 'sjl/gundo.vim'
-" js
+" js语法查错插件
 Plug 'pangloss/vim-javascript'
-" python
+" python代码补全，参数提示
+" Goto assignments <leader>g (typical goto function)
+" Goto definitions <leader>d (follow identifier as far as possible)
+" Renaming <leader>r (更改所有这个单词)
+" Usages <leader>n (shows all the usages of a name)
 Plug 'davidhalter/jedi-vim'
 Plug 'zchee/deoplete-jedi'
-" view
+" 配置方案
 Plug 'tomasr/molokai'
+" 操作多余空格(高亮，删除)
 Plug 'ntpeters/vim-better-whitespace'
+" 缩进符号标识
 Plug 'Yggdroot/indentLine'
+" 多重色彩括号
 Plug 'kien/rainbow_parentheses.vim'
-" markdown
+" markdown语法高亮
 Plug 'plasticboy/vim-markdown'
+" 实时预览
 Plug 'suan/vim-instant-markdown'
 " other
 Plug 'vim-scripts/nginx.vim'
@@ -112,7 +163,7 @@ set langmenu=zh_CN.UTF-8
 set termencoding=&encoding
 
 " Remove the trailing whitespace
-autocmd BufWrite * execute ':%s/\s*$//g'
+" autocmd BufWrite * execute ':%s/\s*$//g'
 
 
 let mapleader = ','
@@ -207,20 +258,7 @@ nnoremap <leader>T :vs term://zsh<cr>a
 
 nnoremap <esc><esc> :nohlsearch<CR>
 
-
-" highlight the char which over length of 80
-"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" 1
-" highlight OverLength ctermbg=red
-" match OverLength /\%81v.\+/
-" 2
-" highlight ColorColumn ctermbg=188
 set colorcolumn=80
-
-" highlight the redundance space
-"highlight BadWhitespace ctermbg=red
-"match BadWhitespace /\s\+$/
-
 
 " ---------------------- event -------------------------------
 "
@@ -234,7 +272,6 @@ autocmd InsertLeave * :set relativenumber
 
 " vimrc文件修改之后自动加载, linux
 autocmd! bufwritepost .init.vim source %
-
 
 " set python config
 "autocmd BufNewFile,BufRead *.py exec ":call SetPythonConfig()"
@@ -392,6 +429,8 @@ let g:deoplete#enable_at_startup=1
 
 " neomake
 "let g:neomake_python_enable_makers = ['pylint', 'flake8', 'pep8']
+" Flake8 是由Python官方发布的一款辅助检测Python代码是否规范的工具
+" Pep8 静态检查PEP8编码风格的工具
 let g:neomake_python_enable_makers = ['flake8', 'pep8']
 let g:neomake_shell_enable_makers = ['shellcheck']
 "let g:neomake_verbose=2
@@ -400,18 +439,31 @@ let g:neomake_shell_enable_makers = ['shellcheck']
 autocmd! BufWritePost * Neomake
 
 " vim-better-whitespace
-autocmd! BufEnter *.py EnableStripWhitespaceOnSave
-autocmd! BufWritePost *.py StripWhitespace
+autocmd! BufEnter * EnableStripWhitespaceOnSave
+autocmd! BufWritePost * StripWhitespace
 
 " nerdcommenter
 " let g:NERDRemoveExtraSpaces = 0
 let g:NERDDefaultAlign = 'left'
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+nnoremap <leader>s :<leader>cc
 
 " ack.vim
 let g:ackprg = 'ag --vimgrep --smart-case'
 nnoremap <leader>a :Ack! -w <c-r><c-w><cr>
 
 " vim-easy-align
+" ga=        对齐等号表达
+" ga:        对齐冒号表达式(json/map等)
+" # 默认左对齐
+" ga<space>  首个空格对齐
+" ga2<space> 第二个空格对齐
+" ga-<space> 倒数第一个空格对齐
+" ga-2<space> 倒数第二个空格对齐
+" ga*<space> 所有空格依次对齐
+" # 右对齐
+" ga<Enter>*<space>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
