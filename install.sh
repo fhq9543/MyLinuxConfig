@@ -127,21 +127,24 @@ ins_nvim_plug_conf()
 ins_pytools()
 {
     # for nvim
+    echo "now install python for vim."
     pip install -U pip neovim jedi flake8 pep8 pylint
 
     # tools
-    pip install thefuck pipreqs mycli alembic, ipdb
+    sudo pip install thefuck pipreqs mycli alembic ipdb
     if [[ -n $(python -V 2>&1 | grep -P '2\.7\.') ]]; then
-        pip install ipython==5.4.1
+        sudo pip install ipython==5.4.1
     else
-        pip install ipython
+        sudo pip install ipython
     fi
+    sudo pip3 install neovim thefuck
 }
 
 # 用于装完系统后安装各类工具
 init()
 {
     sudo apt-get update
+    sudo apt-get install git
     ins_ssh
     ins_samba
     ins_python
@@ -149,7 +152,6 @@ init()
     ins_fzf
     ins_other
     make -C $LINUX_CONFIG_PATH
-    ins_nvim_plug_conf
     ins_pytools
     # zsh必须在最后安装，由于它会将终端切到zsh，从而中断脚本
     ins_zsh
@@ -171,13 +173,13 @@ OPT:
     ins_ssh:            安装open-ssh
     ins_samba:          安装samba及相关配置，共享目录为~/pub
     ins_python:         安装python以及虚拟环境
-    ins_nvim:           安装nvim以及相关插件
-    ins_zsh:            安装zsh
+    ins_nvim:           安装nvim以及相关插件ins_nvim_plug_conf
     ins_fzf:            安装fzf
-    ins_nvim_plug_conf: 安装nvim插件配置
     ins_pytools:        安装python工具，在安装python虚拟环境后安装
-    init:               执行ins_ssh, ins_samba, ins_python, ins_nvim, ins_zsh, ins_fzf, ins_other, make, ins_nvim_plug_conf, ins_pytools
+    ins_zsh:            安装zsh
+    init:               执行ins_ssh, ins_samba, ins_python, ins_nvim, ins_fzf, ins_other, make, ins_pytools, ins_zsh
     ins_zsh_plug:       安装zsh的脚本，必须在安装zsh后执行，否则会阻碍oh-my-zsh的安装
+    ins_nvim_plug_conf: 安装nvim插件配置
 EOF
 }
 
