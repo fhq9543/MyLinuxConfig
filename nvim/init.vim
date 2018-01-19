@@ -59,7 +59,6 @@ Plug 'tpope/vim-surround'
 " . 重复一个插件的操作（如speeddating, surround等)
 Plug 'tpope/vim-repeat'
 " F7 查看同一个文件之前的历史内容
-" 回车  回滚文件到这个时刻的版本
 Plug 'sjl/gundo.vim'
 " js语法查错插件
 Plug 'pangloss/vim-javascript'
@@ -224,7 +223,7 @@ inoremap <c-j> <esc>o
 " TAB
 map <silent><c-b> :tabnext<cr>
 map <silent><c-f> :tabprev<cr>
-map <leader>te :tabedit<cr>
+map <leader>te :tabedit<cr><c-o><leader>d<cr>
 map <leader>td :tabclose<cr>
 map <leader>tm :tabm<cr>
 
@@ -290,6 +289,7 @@ autocmd BufNewFile,BufRead *.py
             \ set shiftround   " round indent to multiple of 'shiftwidth'"
 
 autocmd BufNewFile *.py call append(0, "\# -*- coding: utf-8 -*-")
+autocmd BufNewFile *.sh call append(0, "\#!/bin/bash")
 
 " set web config
 "au BufNewFile,BufRead *.js,*.html,*.css
@@ -317,7 +317,7 @@ function! HideNumber()
     endif
     set number?
 endfunc
-nnoremap <F2> :call HideNumber()<CR>
+nnoremap <F2> :call HideNumber()<CR>:IndentLinesToggle<CR> " indentLine缩进对齐线开关
 " F3 显示可打印字符开关
 nnoremap <F3> :set list! list?<CR>
 " F4 换行开关
@@ -341,8 +341,8 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 " F6 语法开关，关闭语法可以加快大文件的展示
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
-nnoremap <f10> :!python %<cr>
-nnoremap <f9> :!python3 %<cr>
+nnoremap <f9> :w<cr>:!python3 %<cr>
+nnoremap <f10> :w<cr>:!python %<cr>
 
 " ------------------------- plugin setting ----------------------
 "
@@ -446,8 +446,7 @@ autocmd! BufWritePost * StripWhitespace
 " let g:NERDRemoveExtraSpaces = 0
 let g:NERDDefaultAlign = 'left'
 " Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-nnoremap <leader>s :<leader>cc
+" let g:NERDSpaceDelims = 1
 
 " ack.vim
 let g:ackprg = 'ag --vimgrep --smart-case'
