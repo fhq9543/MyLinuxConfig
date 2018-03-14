@@ -70,7 +70,9 @@ ins_nvim()
 {
     echo "Now execute ins_nvim."
     sudo yum -y install epel-release
+    echo "Now just wanna say something."
     sudo curl -o /etc/yum.repos.d/dperson-neovim-epel-7.repo https://copr.fedorainfracloud.org/coprs/dperson/neovim/repo/epel-7/dperson-neovim-epel-7.repo
+    echo "Now install neovim."
     sudo yum -y install neovim
 
     sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
