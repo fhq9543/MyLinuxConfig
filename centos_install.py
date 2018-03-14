@@ -157,7 +157,7 @@ ins_pytools()
 init()
 {
     echo "Now execute yum update."
-    sudo yum update
+    sudo yum update -y
     echo "Now install git."
     sudo yum install -y git
     ins_python
