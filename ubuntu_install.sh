@@ -11,8 +11,8 @@ LINUX_CONFIG_PATH=$(dirname $(readlink -f $0))
 ins_samba()
 {
     echo "Now execute ins_samba."
-    sudo apt-get install samba
-    sudo apt-get install smbclient
+    sudo apt-get install -y samba
+    sudo apt-get install -y smbclient
     sudo /etc/init.d/samba start
     samba_dir=$HOME/pub/
     if [ ! -d $samba_dir ]; then
@@ -128,14 +128,14 @@ ins_pytools()
 {
     echo "Now execute ins_pytools."
     # for nvim
-    pip install -U pip neovim jedi flake8 pep8 pylint
+    pip3 install -U pip neovim jedi flake8 pep8 pylint
 
     # tools
-    sudo pip install thefuck pipreqs mycli alembic ipdb
+    sudo pip3 install thefuck pipreqs mycli alembic ipdb
     if [[ -n $(python -V 2>&1 | grep -P '2\.7\.') ]]; then
         sudo pip install ipython==5.4.1
     else
-        sudo pip install ipython
+        sudo pip3 install ipython
     fi
     sudo pip3 install neovim thefuck
 }
@@ -146,7 +146,7 @@ init()
     echo "Now execute apt-get update."
     sudo apt-get update
     echo "Now install git."
-    sudo apt-get install git
+    sudo apt-get install -y git
     ins_samba
     ins_python
     ins_nvim

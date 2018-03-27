@@ -114,12 +114,13 @@ ins_other()
 {
     echo "Now execute ins_other."
     # common
-    sudo yum install -y vim openssh-client openssh-server lrzsz
+    sudo yum install -y openssh-server lrzsz
     # zsh plugin
-    sudo yum install -y autojump silversearcher-ag
+    sudo yum -y groupinstall "Development Tools"
+    sudo yum install -y autojump the_silver_searcher
     # nvim
     sudo yum install -y ctags
-    sudo service ssh start
+    service sshd restart
 }
 
 # 安装nvim插件配置
@@ -143,14 +144,14 @@ ins_pytools()
 {
     echo "Now execute ins_pytools."
     # for nvim
-    pip install -U pip neovim jedi flake8 pep8 pylint
+    pip3 install -U pip neovim jedi flake8 pep8 pylint
 
     # tools
-    sudo pip install thefuck pipreqs mycli alembic ipdb
+    sudo pip3 install thefuck pipreqs mycli alembic ipdb
     if [[ -n $(python -V 2>&1 | grep -P '2\.7\.') ]]; then
         sudo pip install ipython==5.4.1
     else
-        sudo pip install ipython
+        sudo pip3 install ipython
     fi
     sudo pip3 install neovim thefuck
 }
