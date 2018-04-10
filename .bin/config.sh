@@ -45,8 +45,8 @@ alias venv3='virtualenv -p python3 venv && \
     ~/.env/py3/lib/python3.6/site-packages/msgpack* \
     ~/.env/py3/lib/python3.6/site-packages/neovim* \
     ~//.env/py3/lib/python3.6/site-packages/parso* \
-    venv/lib/python3.6/site-packages/ && \
-    source venv/bin/activate'
+    venv/lib/python3.6/site-packages/'
+alias svenv='source venv/bin/activate'
 # pip必须在virtualenv环境下执行
 # http://pythonguidecn.readthedocs.io/zh/latest/dev/pip-virtualenv.html
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
