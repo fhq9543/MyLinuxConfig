@@ -148,12 +148,7 @@ ins_pytools()
 
     # tools
     sudo pip3 install thefuck pipreqs mycli alembic ipdb
-    if [[ -n $(python -V 2>&1 | grep -P '2\.7\.') ]]; then
-        sudo pip install ipython==5.4.1
-    else
-        sudo pip3 install ipython
-    fi
-    sudo pip3 install neovim thefuck
+    sudo pip3 install ipython
 }
 
 # 用于装完系统后安装各类工具
