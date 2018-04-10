@@ -3,3 +3,4 @@ config_local.sh
 .bin/install.sh
 # zsh pip plugin install cache
 .pip/zsh-cache
+mysql*
