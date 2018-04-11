@@ -381,13 +381,16 @@ nmap <leader>k :tp<cr>
 
 " ctrlp
 let g:ctrlp_map = '<leader>p'
+nnoremap <leader>b :CtrlPBuffer<cr>
+nnoremap <leader>u :CtrlPMRUFiles<cr>
 "let g:ctrlp_by_filename = 1
 let g:ctrlp_working_path_mode = 'rw'
 let g:ctrlp_root_markers = ["tags", "cscope.out"]
 let g:ctrlp_clear_cache_on_exit = 0
-set wildignore=*.o,*.obj,*.d,*/.git/*,*.a,*.so,*.pyc,*/__pycache__/*
-nnoremap <leader>b :CtrlPBuffer<cr>
-nnoremap <leader>u :CtrlPMRUFiles<cr>
+set wildignore=*.o,*.obj,*.d,*/.git/*,*.a,*.so,*.pyc,*/__pycache__/*,*/venv/*
+"修改QuickFix窗口显示的最大条目数
+let g:ctrlp_max_height = 15
+let g:ctrlp_match_window_reversed = 0
 
 "" cscope
 "set cspc=3
@@ -451,6 +454,8 @@ let g:NERDDefaultAlign = 'left'
 " ack.vim
 let g:ackprg = 'ag --vimgrep --smart-case'
 nnoremap <leader>a :Ack! -w <c-r><c-w><cr>
+"高亮搜索关键词
+let g:ackhighlight = 1
 
 " vim-easy-align
 " ga=        对齐等号表达
