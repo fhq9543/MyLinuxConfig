@@ -12,7 +12,7 @@ ins_samba()
 {
     echo "Now execute ins_samba."
     sudo yum install -y samba samba-client
-    samba_dir=$HOME/pub/
+    samba_dir=$HOME/learn/
     if [ ! -d $samba_dir ]; then
         mkdir $samba_dir
     fi
@@ -64,6 +64,7 @@ ins_python()
     mkdir -p ~/.env
     virtualenv -p python ~/.env/py2
     virtualenv -p python3 ~/.env/py3
+    virtualenv -p python3 ~/.env/web
 }
 
 ins_nvim()

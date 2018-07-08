@@ -86,7 +86,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 #User configuration
-alias sd="cd $HOME/pub/"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."

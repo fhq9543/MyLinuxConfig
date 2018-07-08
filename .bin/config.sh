@@ -38,15 +38,17 @@ fi
 alias ls='ls --hide="*.pyc" --color'
 alias py2='source ~/.env/py2/bin/activate'
 alias py3='source ~/.env/py3/bin/activate'
+alias web='source ~/.env/web/bin/activate'
 alias venv2='virtualenv -p python2 venv'
 alias venv3='virtualenv -p python3 venv && \
     cp -r ~/.env/py3/lib/python3.6/site-packages/greenlet* \
     ~/.env/py3/lib/python3.6/site-packages/jedi* \
     ~/.env/py3/lib/python3.6/site-packages/msgpack* \
     ~/.env/py3/lib/python3.6/site-packages/neovim* \
-    ~//.env/py3/lib/python3.6/site-packages/parso* \
+    ~/.env/py3/lib/python3.6/site-packages/parso* \
     venv/lib/python3.6/site-packages/'
 alias svenv='source venv/bin/activate'
+alias uwsgicfg='/root/.bin/uwsgicfg.sh'
 # pip必须在virtualenv环境下执行
 # http://pythonguidecn.readthedocs.io/zh/latest/dev/pip-virtualenv.html
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
