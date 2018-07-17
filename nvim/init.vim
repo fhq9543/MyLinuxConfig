@@ -93,7 +93,6 @@ call plug#end()
 scriptencoding utf-8
 syntax on
 syntax enable
-set undofile
 set mouse=                 " disable mouse usage
 set background=dark
 set mousehide               " Hide the mouse cursor while typing
@@ -148,6 +147,7 @@ set nowrap
 
 " disable stupid backup and swap files - they trigger too many events for file
 " system watchers
+set noundofile
 set nobackup
 set nowritebackup
 set noswapfile

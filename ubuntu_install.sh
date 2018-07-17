@@ -13,7 +13,7 @@ ins_samba()
     echo "Now execute ins_samba."
     sudo apt-get install -y samba
     sudo apt-get install -y smbclient
-    sudo /etc/init.d/samba start
+    sudo /etc/init.d/samba-ad-dc start
     samba_dir=$HOME/pub/
     if [ ! -d $samba_dir ]; then
         mkdir $samba_dir
@@ -36,19 +36,19 @@ ins_samba()
     sudo echo "vaild users = $USER" >> /etc/samba/smb.conf
     sudo chmod 644 /etc/samba/smb.conf
     sudo smbpasswd -a $USER
-    sudo /etc/init.d/samba restart
+    sudo /etc/init.d/samba-ad-dc restart
 }
 
 ins_python()
 {
     echo "Now execute ins_python."
-    sudo apt-get install -y python python-dev python-pip
+    #sudo apt-get install -y python python-dev python-pip
     sudo apt-get install -y python3 python-dev python3-pip
     make -C $LINUX_CONFIG_PATH install-pip
     sudo pip install -U pip
     sudo pip install virtualenv
     mkdir -p ~/.env
-    virtualenv -p python ~/.env/py2
+    #virtualenv -p python ~/.env/py2
     virtualenv -p python3 ~/.env/py3
 }
 
@@ -128,16 +128,22 @@ ins_pytools()
 {
     echo "Now execute ins_pytools."
     # for nvim
-    pip3 install -U pip neovim jedi flake8 pep8 pylint
+    pip3 install -U pip testresources neovim jedi flake8 pep8 pylint
 
     # tools
     sudo pip3 install thefuck pipreqs mycli alembic ipdb
-    if [[ -n $(python -V 2>&1 | grep -P '2\.7\.') ]]; then
-        sudo pip install ipython==5.4.1
-    else
-        sudo pip3 install ipython
-    fi
+    #if [[ -n $(python -V 2>&1 | grep -P '2\.7\.') ]]; then
+        #sudo pip install ipython==5.4.1
+    #else
+    sudo pip3 install ipython
+    #fi
     sudo pip3 install neovim thefuck
+    sudo cp -r ~/.local/lib/python3.6/site-packages/greenlet* \
+            ~/.local/lib/python3.6/site-packages/jedi* \
+            ~/.local/lib/python3.6/site-packages/msgpack* \
+            ~/.local/lib/python3.6/site-packages/neovim* \
+            ~/.local/lib/python3.6/site-packages/parso* \
+            ~/.env/py3/lib/python3.6/site-packages/
 }
 
 # 用于装完系统后安装各类工具
