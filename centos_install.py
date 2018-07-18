@@ -41,9 +41,9 @@ ins_samba()
 ins_python()
 {
     echo "Now execute ins_python."
-    # install pip
-    sudo yum install -y epel-release
-    sudo yum install -y python-pip python-devel
+#     # install pip
+#     sudo yum install -y epel-release
+#     sudo yum install -y python-pip python-devel
 
     curdir=`pwd`
     # install python3
@@ -62,7 +62,7 @@ ins_python()
     sudo pip install -U pip
     sudo pip install virtualenv
     mkdir -p ~/.env
-    virtualenv -p python ~/.env/py2
+    # virtualenv -p python ~/.env/py2
     virtualenv -p python3 ~/.env/py3
     virtualenv -p python3 ~/.env/web
 }
