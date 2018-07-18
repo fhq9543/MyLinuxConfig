@@ -50,6 +50,7 @@ ins_python()
     mkdir -p ~/.env
     #virtualenv -p python ~/.env/py2
     virtualenv -p python3 ~/.env/py3
+    virtualenv -p python3 ~/.env/web
 }
 
 ins_nvim()

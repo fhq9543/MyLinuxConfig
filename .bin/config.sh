@@ -52,10 +52,10 @@ alias uwsgicfg='/root/.bin/uwsgicfg.sh'
 # pip必须在virtualenv环境下执行
 # http://pythonguidecn.readthedocs.io/zh/latest/dev/pip-virtualenv.html
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
-export PIP_REQUIRE_VIRTUALENV=true
-gpip() {
-	PIP_REQUIRE_VIRTUALENV="" pip "$@"
-}
+#export PIP_REQUIRE_VIRTUALENV=true
+#gpip() {
+#    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+#}
 
 # nvim
 VIMRUNTIME="$(nvim -e --cmd 'echo $VIMRUNTIME|quit' 2>&1)"
