@@ -5,6 +5,8 @@ call plug#begin(plug_path)
 Plug 'majutsushi/tagbar'
 " ,nf ,nt 左侧目录树显示
 Plug 'scrooloose/nerdtree',
+" 在NERDTree 中显示git信息
+Plug 'Xuyuanp/nerdtree-git-plugin'
 " ,p ,b ,u 文件模糊查找
 Plug 'kien/ctrlp.vim'
 " tab 代码片段工具，代码块补全
@@ -370,6 +372,16 @@ set updatetime=1000
 " NERDTree
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
+" 忽略以下文件显示
+let NERDTreeIgnore=['__pycache__','db.sqlite3', '\.pyc','\~$','\.swp']
+" 显示隐藏文件
+let NERDTreeShowHidden=1
+
+" nerdtree-git-plugin
+" 修改符号
+"let g:NERDTreeIndicatorMapCustom={"Modified": "✹", "Staged": "✚", "Untracked": "✭", "Renamed": "➜", "Unmerged": "═", "Deleted": "✖", "Dirty": "✗", "Clean": "✔︎", "Unknown": "?", "Ignored": "☒"}
+" 显示gitignored的文件
+let g:NERDTreeShowIgnoredStatus = 1
 
 let OmniCpp_NamespaceSearch = 2 "search namespaces in the current buffer and in include files
 
