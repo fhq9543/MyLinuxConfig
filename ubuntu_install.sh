@@ -43,10 +43,10 @@ ins_python()
 {
     echo "Now execute ins_python."
     #sudo apt-get install -y python python-dev python-pip
-    sudo apt-get install -y python3 python-dev python3-pip
+    sudo apt-get install -y python3 python3-pip
     make -C $LINUX_CONFIG_PATH install-pip
-    sudo pip install -U pip
-    sudo pip install virtualenv
+    sudo pip3 install -U pip
+    sudo pip3 install virtualenv
     mkdir -p ~/.env
     #virtualenv -p python ~/.env/py2
     virtualenv -p python3 ~/.env/py3
@@ -154,7 +154,6 @@ init()
     sudo apt-get update
     echo "Now install git."
     sudo apt-get install -y git
-    ins_samba
     ins_python
     ins_nvim
     ins_fzf
@@ -170,7 +169,7 @@ ins_zsh_plug()
 {
     echo "Now execute ins_zsh_plug."
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestion
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     make -C $LINUX_CONFIG_PATH install-zsh
 }
 
@@ -186,7 +185,7 @@ OPT:
     ins_other:          安装open-ssh, autojump, ctags, vim等
     ins_pytools:        安装python工具，在安装python虚拟环境后安装
     ins_zsh:            安装zsh
-    init:               执行ins_ssh, ins_samba, ins_python, ins_nvim, ins_fzf, ins_other, make, ins_pytools, ins_zsh
+    init:               执行ins_ssh, ins_python, ins_nvim, ins_fzf, ins_other, make, ins_pytools, ins_zsh
     ins_zsh_plug:       安装zsh的脚本，必须在安装zsh后执行，否则会阻碍oh-my-zsh的安装
     ins_nvim_plug_conf: 安装nvim插件配置
 EOF

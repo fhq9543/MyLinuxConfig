@@ -72,3 +72,8 @@ fi
 
 # fix pip can't install package because of pip.plugin.zsh
 unalias pip > /dev/null 2>&1
+
+export GOROOT=/usr/local/go  #设置为go安装的路径，有些安装包会自动设置默认的goroot
+export GOPATH=$HOME/go:/f/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export GO111MODULE=on

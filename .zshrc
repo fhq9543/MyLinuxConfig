@@ -52,7 +52,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git autojump colored-man-pages zsh_reload pip sudo \
-	extract django python celery supervisord zsh-syntax-highlighting zsh-autosuggestions wd web-search catimg)
+	extract django python celery supervisor zsh-syntax-highlighting zsh-autosuggestions wd web-search catimg)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -160,3 +160,6 @@ echo " "
 source ~/.bin/config.sh
 
 eval $(thefuck --alias)
+
+bindkey '\e[1~' beginning-of-line
+bindkey '\e[4~' end-of-line
